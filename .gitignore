@@ -1,0 +1,78 @@
+# Xcode
+#
+# gitignore template for Xcode projects
+# Recommended: https://github.com/github/gitignore/blob/main/Swift.gitignore
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+
+## Other
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+# Add this line if you want to avoid checking in source code from dependencies.
+# Packages/
+# Package.pins
+# Package.resolved
+# *.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+.build/
+
+# CocoaPods
+Pods/
+# Carthage
+Carthage/Build/
+
+# Accio dependency management
+Dependencies/
+.accio/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Code Injection
+iOSInjectionProject/
+
+# Firebase
+GoogleService-Info.plist
+
+# macOS
+.DS_Store
+
+# User-specific files
+*.swp
+*.lock
+*.tmp
+*.log
+*.xcuserdatad
+
+# Editor
+.idea/
+.vscode/
