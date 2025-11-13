@@ -3,18 +3,8 @@ import SwiftUI
 struct PersonCard: View {
     var person: Person
     @State private var showprofilecard = false
-    @State private var people: [Person] = [
-        Person(name: "John Doe",
-               locationMet : "iOS Club",
-               major: "CS",
-               dateMet: "11/01/2025",
-               insta: "john_doe",
-               tags: ["📚 Class", "🧩 Club"],
-               description: "-cool\n-smart\n-funny")
-    ]
     
     var body: some View {
-        
         VStack(spacing: 12) {
             HStack(alignment: .top, spacing: 4) {
                 

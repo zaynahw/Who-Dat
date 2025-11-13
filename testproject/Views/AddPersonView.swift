@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AddPersonView: View {
-    var onAdd: (Person) -> Void
+    var onAdd: (Person, UIImage?) -> Void
     @Environment(\.dismiss) private var dismiss
     
     //add person variables
@@ -231,10 +231,10 @@ struct AddPersonView: View {
                                                 dateMet: newDate,
                                                 insta: newInsta,
                                                 tags: finalTags,
+                                                description: newNotes,
                                                 imageData: photo?.jpegData(compressionQuality: 0.9),
-                                                description: newNotes
                                             )
-                                                onAdd(newPerson)
+                                                onAdd(newPerson, photo)
                                                 dismiss()
                                         }
                                     } label: {

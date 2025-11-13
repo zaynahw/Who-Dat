@@ -1,33 +1,14 @@
 import SwiftUI
 
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
-
 let bgColor = Color(red: 0.988, green: 0.988, blue: 0.996)
 let linGradient = Gradient(colors: [Color(red: 0.271, green: 0.337, blue: 0.863), Color(red: 0.455, green: 0.580, blue: 1.00)])
 let mainPurple = Color(red: 0.353, green: 0.463, blue: 0.933)
 
-
-// add
-
-
 struct ContentView: View {
-    var vm: FirebaseViewModel = FirebaseViewModel()
+    @StateObject var vm = FirebaseViewModel.shared
     @State private var searchText = ""
     @State private var selectedFilters: [String] = []
     @State private var showAddSheet = false
-    @State private var people: [Person] = [
-//        Person(name: "John Doe",
-//               locationMet : "iOS Club",
-//               major: "CS",
-//               dateMet: "11/01/2025",
-//               insta: "john_doe",
-//               tags: ["📚 Class", "🧩 Club"],
-//               description: "-cool\n-smart\n-funny")
-    ]
     
     let categoryNames = [
         ("📚", "Class"),
@@ -38,7 +19,7 @@ struct ContentView: View {
     ]
     
     var filteredPeople: [Person] {
-        people.filter { person in
+        vm.people.filter { person in
             let searchMatches = searchText.isEmpty || person.name.lowercased().contains(searchText.lowercased())
             
             let filterMatches = selectedFilters.isEmpty ||
@@ -56,7 +37,7 @@ struct ContentView: View {
 
         for (emoji, name) in categoryNames {
             var count = 0
-            for person in people {
+            for person in vm.people {
                 for tag in person.tags {
                     if tag.localizedCaseInsensitiveContains(name) {
                         count += 1
@@ -189,10 +170,15 @@ struct ContentView: View {
             .padding(.trailing, 24)
             .padding(.bottom, 24)
             .sheet(isPresented: $showAddSheet) {
-                AddPersonView { newPerson in
-                    people.append(newPerson)
+                AddPersonView { newPerson, image in
+                    Task {
+                        await vm.addPerson(person: newPerson, image: image)
+                    }
                 }
             }
+        }
+        .task {
+            await vm.fetchPeople() // fetch people on load
         }
     }
 }

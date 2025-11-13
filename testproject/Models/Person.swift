@@ -1,14 +1,7 @@
-//
-//  File.swift
-//  iosproject
-//
-//  Created by Zaynah Wahab on 11/11/25.
-//
-
 import SwiftUI
+import Foundation
 
-struct Person: Identifiable {
-    
+struct Person: Identifiable, Codable {
     var id: UUID = UUID()
     var name: String
     var locationMet: String
@@ -17,24 +10,37 @@ struct Person: Identifiable {
     var insta: String
     var tags: [String]
     var description: String
+    var photoURL: String? // URL of image in Firebase Storage
+    
+    // Local-only property, not stored in Firestore
     var imageData: Data? = nil
     
-    init(name: String = "No Name",
+    // Coding keys to exclude imageData from Firestore
+    enum CodingKeys: String, CodingKey {
+        case id, name, locationMet, major, dateMet, insta, tags, description, photoURL
+    }
+    
+    init(
+        id: UUID = UUID(),
+        name: String = "No Name",
         locationMet: String = "",
         major: String = "",
         dateMet: String = "01/01/2025",
         insta: String = "",
         tags: [String] = [],
-        imageData: Data? = nil,
-         description: String = ""){
+        description: String = "",
+        photoURL: String? = nil,
+        imageData: Data? = nil
+    ) {
+        self.id = id
         self.name = name.isEmpty ? "No Name" : name
         self.locationMet = locationMet
         self.major = major
         self.dateMet = dateMet
         self.insta = insta
         self.tags = tags
+        self.description = description.isEmpty ? "No Description" : description
+        self.photoURL = photoURL
         self.imageData = imageData
-        self.description = description.isEmpty ? "No Description": description
     }
-    
 }
