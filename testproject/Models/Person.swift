@@ -3,7 +3,7 @@ import Foundation
 import FirebaseFirestore
 
 struct Person: Identifiable, Codable {
-    @DocumentID var id: String?
+    @DocumentID var id: String? = nil
     var name: String
     var locationMet: String
     var major: String
@@ -12,13 +12,11 @@ struct Person: Identifiable, Codable {
     var tags: [String]
     var description: String
     var photoURL: String? // URL of image in Firebase Storage
-    
-    // Local-only property, not stored in Firestore
-    var imageData: Data? = nil
+    var imageData: Data?
     
     // Coding keys to exclude imageData from Firestore
     enum CodingKeys: String, CodingKey {
-        case id, name, locationMet, major, dateMet, insta, tags, description, photoURL
+        case id, name, locationMet, major, dateMet, insta, tags, description, photoURL, imageData
     }
     
     init(

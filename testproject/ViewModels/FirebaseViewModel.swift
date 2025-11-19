@@ -16,37 +16,79 @@ class FirebaseViewModel: ObservableObject {
     var currentUserID: String = "zaynah"  // ✅ your Firestore document name
     
     // MARK: - Add Person
-    func addPerson(person: Person, image: UIImage?) async {
+    func addPerson(person: Person) async {
         let userID = currentUserID
-        let personID = UUID().uuidString
         var personToUpload = person
-        
+        personToUpload.id = UUID().uuidString
+
         do {
-            // Upload photo if available
-            if let image = image, let imageData = image.jpegData(compressionQuality: 0.8) {
-                let storageRef = storage.reference().child("FRIENDS/\(userID)/\(personID).jpg")
-                let _ = try await storageRef.putDataAsync(imageData)
-                let url = try await storageRef.downloadURL()
-                personToUpload.photoURL = url.absoluteString
-            }
-            
-            personToUpload.id = nil
-            
-            // Save person data in Firestore
             try db.collection("USER")
                 .document(userID)
                 .collection("FRIENDS")
-                .document(personID)
+                .document(personToUpload.id!)
                 .setData(from: personToUpload)
-            
-            // Add locally
+
             people.append(personToUpload)
-            print("✅ Added \(personToUpload.name) to USER/\(userID)/FRIENDS")
-            
+            print("✅ Added \(personToUpload.name)")
         } catch {
-            print("Error adding person:", error.localizedDescription)
+            print("❌ Error adding person:", error.localizedDescription)
         }
     }
+
+    @MainActor
+    func updatePerson(_ person: Person) async {
+        guard let id = person.id else {
+            print("❌ Person ID missing; cannot update")
+            return
+        }
+
+        let userID = currentUserID
+
+        do {
+            try db.collection("USER")
+                .document(userID)
+                .collection("FRIENDS")
+                .document(id)
+                .setData(from: person) // overwrites existing document
+
+            // Update local array
+            if let index = people.firstIndex(where: { $0.id == id }) {
+                people[index] = person
+            }
+
+            print("✅ Updated \(person.name)")
+        } catch {
+            print("❌ Error updating person:", error.localizedDescription)
+        }
+    }
+
+    @MainActor
+    func deletePerson(_ person: Person) async {
+        guard let id = person.id else {
+            print("❌ Person ID missing; cannot delete")
+            return
+        }
+        
+        let userID = currentUserID
+        
+        do {
+            try await db.collection("USER")
+                .document(userID)
+                .collection("FRIENDS")
+                .document(id)
+                .delete()
+            
+            // Remove from local array
+            if let index = people.firstIndex(where: { $0.id == id }) {
+                people.remove(at: index)
+            }
+            
+            print("✅ Deleted \(person.name)")
+        } catch {
+            print("❌ Error deleting person:", error.localizedDescription)
+        }
+    }
+
     
     // MARK: - Fetch People
     func fetchPeople() async {

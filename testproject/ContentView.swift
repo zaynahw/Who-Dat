@@ -58,7 +58,7 @@ struct ContentView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 
-                Text("App name")
+                Text("WhoDat?")
                     .font(.largeTitle)
                     .bold()
                     .padding(.horizontal, 24)
@@ -170,9 +170,9 @@ struct ContentView: View {
             .padding(.trailing, 24)
             .padding(.bottom, 24)
             .sheet(isPresented: $showAddSheet) {
-                AddPersonView { newPerson, image in
+                AddPersonView { newPerson in
                     Task {
-                        await vm.addPerson(person: newPerson, image: image)
+                        await vm.addPerson(person: newPerson)
                     }
                 }
             }

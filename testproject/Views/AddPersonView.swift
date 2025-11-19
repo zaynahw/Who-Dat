@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AddPersonView: View {
-    var onAdd: (Person, UIImage?) -> Void
+    var onAdd: (Person) -> Void
     @Environment(\.dismiss) private var dismiss
     
     //add person variables
@@ -232,34 +232,33 @@ struct AddPersonView: View {
                                                 insta: newInsta,
                                                 tags: finalTags,
                                                 description: newNotes,
-                                                imageData: photo?.jpegData(compressionQuality: 0.9),
+                                                imageData: photo?.jpegData(compressionQuality: 0.5) // compress to save Firestore space
                                             )
-                                                onAdd(newPerson, photo)
-                                                dismiss()
+                                            
+                                            onAdd(newPerson)  // only call the closure
+                                            dismiss()
                                         }
                                     } label: {
                                         Text("Add Friend!")
                                             .font(.system(size: 18, weight: .semibold))
-                                            .foregroundColor(Color(red: 1, green: 1, blue: 1))
+                                            .foregroundColor(Color.white)
                                             .frame(maxWidth: .infinity)
                                             .padding(.vertical, 16)
                                             .background(
                                                 LinearGradient(
-                                                    gradient: Gradient(colors: [Color(red: 0.271, green: 0.337, blue: 0.863), Color(red: 0.455, green: 0.580, blue: 1.0)]),
+                                                    gradient: Gradient(colors: [Color(red: 0.271, green: 0.337, blue: 0.863),
+                                                                                Color(red: 0.455, green: 0.580, blue: 1.0)]),
                                                     startPoint: .topLeading,
                                                     endPoint: .bottomTrailing
                                                 )
                                             )
                                             .cornerRadius(67)
                                     }
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.top, 20)
                                     .alert("Missing name", isPresented: $showValidationError) {
                                         Button("OK", role: .cancel) {}
                                     } message: {
                                         Text("Please enter a name before adding your friend")
                                     }
-                                    
                                 }
                             }
                         }
