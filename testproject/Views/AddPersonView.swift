@@ -46,7 +46,7 @@ struct AddPersonView: View {
                             } label : {
                                 Image(systemName: "xmark")
                                     .font(.system(size: 30, weight: .bold))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(Color(red: 0, green: 0, blue: 0))
                                     .padding(10)
                             }
                         }
@@ -60,13 +60,13 @@ struct AddPersonView: View {
                                         .padding(.top)
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 12)
-                                            .fill(.gray.opacity(0.2))
+                                            .fill(Color(red: 0.9, green: 0.9, blue: 0.9))
                                             .frame(width: 120, height: 120)
                                             .padding(.trailing, 12)
                                             .overlay(
                                                 Image(systemName: "person")
                                                     .font(.system(size: 75))
-                                                    .foregroundColor(.gray)
+                                                    .foregroundColor(Color(red: 0.6, green: 0.6, blue: 0.6))
                                                     .padding(.trailing, 12)
                                             )
                                         
@@ -103,7 +103,7 @@ struct AddPersonView: View {
                                         .padding(12)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 8)
-                                            .stroke(.black, lineWidth: 1))
+                                            .stroke(Color(red: 0, green: 0, blue: 0), lineWidth: 1))
                                     Text("Where You Met")
                                         .padding(.top)
                                         .bold()
@@ -111,7 +111,7 @@ struct AddPersonView: View {
                                         .padding(12)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 8)
-                                            .stroke(.black, lineWidth: 1))
+                                            .stroke(Color(red: 0, green: 0, blue: 0), lineWidth: 1))
                                     Text("Major")
                                         .padding(.top)
                                         .bold()
@@ -119,7 +119,7 @@ struct AddPersonView: View {
                                         .padding(12)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 8)
-                                            .stroke(.black, lineWidth: 1))
+                                            .stroke(Color(red: 0, green: 0, blue: 0), lineWidth: 1))
                                     Text("Date Met")
                                         .padding(.top)
                                         .bold()
@@ -127,7 +127,7 @@ struct AddPersonView: View {
                                         .padding(12)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 8)
-                                            .stroke(.black, lineWidth: 1))
+                                            .stroke(Color(red: 0, green: 0, blue: 0), lineWidth: 1))
                                     Text("Instagram")
                                         .padding(.top)
                                         .bold()
@@ -135,7 +135,7 @@ struct AddPersonView: View {
                                         .padding(12)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 8)
-                                            .stroke(.black, lineWidth: 1))
+                                            .stroke(Color(red: 0, green: 0, blue: 0), lineWidth: 1))
                                     HStack {
                                         Text("Tags")
                                             .bold()
@@ -153,12 +153,12 @@ struct AddPersonView: View {
                                                         .font(.system(size: 14, weight: .medium))
                                                         .padding(.horizontal, 10)
                                                         .padding(.vertical, 6)
-                                                        .background(isOn ? Color(red: 0.353, green: 0.463, blue: 0.933) : .white)
-                                                        .foregroundColor(isOn ? .white : .black)
+                                                        .background(isOn ? Color(red: 0.353, green: 0.463, blue: 0.933) : Color(red: 1, green: 1, blue: 1))
+                                                        .foregroundColor(isOn ? Color(red: 1, green: 1, blue: 1) : Color(red: 0, green: 0, blue: 0))
                                                         .cornerRadius(67)
                                                         .overlay(
                                                             RoundedRectangle(cornerRadius: 67)
-                                                                .stroke(isOn ? .blue: .black, lineWidth: 1)
+                                                                .stroke(isOn ? Color(red: 0.353, green: 0.463, blue: 0.933) : Color(red: 0, green: 0, blue: 0), lineWidth: 1)
                                                         )
                                                 }
                                             }
@@ -177,7 +177,7 @@ struct AddPersonView: View {
                                                 .padding(12)
                                                 .overlay(
                                                     RoundedRectangle(cornerRadius: 8)
-                                                    .stroke(.black, lineWidth: 1))
+                                                    .stroke(Color(red: 0, green: 0, blue: 0), lineWidth: 1))
                                             Button {
                                                 let name = customTag.trimmingCharacters(in: .whitespacesAndNewlines)
                                                 guard !name.isEmpty else {return}
@@ -191,7 +191,7 @@ struct AddPersonView: View {
                                                     .padding(.horizontal, 12)
                                                     .padding(.vertical, 10)
                                                     .background(Color(red: 0.353, green: 0.463, blue: 0.933))
-                                                    .foregroundColor(.white)
+                                                    .foregroundColor(Color(red: 1, green: 1, blue: 1))
                                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                                             }
                                         }
@@ -204,12 +204,12 @@ struct AddPersonView: View {
                                             .frame(height: 100)
                                             .overlay(
                                                 RoundedRectangle(cornerRadius: 8)
-                                                .stroke(.black, lineWidth: 1))
+                                                .stroke(Color(red: 0, green: 0, blue: 0), lineWidth: 1))
                                             .overlay(
                                                 Group {
                                                     if newNotes.isEmpty {
                                                         TextField("Interests, what you talked about, etc...", text: $newNotes)
-                                                            .foregroundColor(.gray)
+                                                            .foregroundColor(Color(red: 0.6, green: 0.6, blue: 0.6))
                                                     }
                                                 }
                                                     .frame(width: 350, height: 80, alignment:.topLeading)
@@ -240,10 +240,16 @@ struct AddPersonView: View {
                                     } label: {
                                         Text("Add Friend!")
                                             .font(.system(size: 18, weight: .semibold))
-                                            .foregroundColor(.white)
+                                            .foregroundColor(Color(red: 1, green: 1, blue: 1))
                                             .frame(maxWidth: .infinity)
                                             .padding(.vertical, 16)
-                                            .background(Gradient(colors: [Color(red: 0.271, green: 0.337, blue: 0.863), Color(red: 0.455, green: 0.580, blue: 1.00)]))
+                                            .background(
+                                                LinearGradient(
+                                                    gradient: Gradient(colors: [Color(red: 0.271, green: 0.337, blue: 0.863), Color(red: 0.455, green: 0.580, blue: 1.0)]),
+                                                    startPoint: .topLeading,
+                                                    endPoint: .bottomTrailing
+                                                )
+                                            )
                                             .cornerRadius(67)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .center)
@@ -259,7 +265,7 @@ struct AddPersonView: View {
                         }
                 }
                 .padding(16)
-                .background(.white)
+                .background(Color(red: 0.988, green: 0.988, blue: 0.996))
                 .cornerRadius(16)
             }
         }
