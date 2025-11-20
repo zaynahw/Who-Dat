@@ -14,7 +14,7 @@ struct AddPersonView: View {
     @State private var newNotes : String = ""
     
     //tag variables
-    @State private var allTags = ["📚 Class", "👟 Gym", "🧩 Club", "🛏️ Dorm", "🏫 Week of Welcome"]
+    @State private var allTags = ["📚 Class", "👟 Gym", "🧩 Club", "🛏️ Dorm", "🏫 Welcome Week"]
     @State private var selectedTags: [String] = []
     @State private var customTag: String = ""
     @State private var selectedEmoji: String = "📚"

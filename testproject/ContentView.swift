@@ -15,7 +15,7 @@ struct ContentView: View {
         ("👟", "Gym"),
         ("🧩", "Club"),
         ("🛏️", "Dorm"),
-        ("🏫", "Week of Welcome")
+        ("🏫", "Welcome Week")
     ]
     
     var filteredPeople: [Person] {
